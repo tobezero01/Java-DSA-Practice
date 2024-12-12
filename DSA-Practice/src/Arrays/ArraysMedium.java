@@ -34,46 +34,80 @@ public class ArraysMedium {
         return max;
     }
 
+    //274. H-Index
+    public static int hIndex(int[] citations) {
+        int n = citations.length;
+        Arrays.sort(citations);
+
+        for (int i = 0; i < n; i++) {
+            if(citations[i] >= n - i) {
+                return n - i;
+            }
+        }
+        return 0;
+    }
+
+    //134. Gas Station
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int gasTotal = 0, costTotal = 0, tank = 0;
+        int startPoint = 0;
+        for (int i = 0; i < gas.length; i++) {
+            costTotal += cost[i];
+            gasTotal += gas[i];
+            tank += gas[i] - cost[i];
+
+            if (tank < 0) {
+                startPoint = i + 1;
+                tank = 0;
+            }
+        }
+        return gasTotal < costTotal ? -1 : startPoint;
+    }
+
+    //238. Product of Array Except Self
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int [] res = new int[n];
+        res[0] = 1;
+        for (int i = 1; i < n; i++) {
+            res[i] = res[i-1] * nums[i-1];
+        }
+        int suffix = 1;
+        for (int i = n - 1; i >= 0 ; i--) {
+            res[i] = res[i] * suffix;
+            suffix *= nums[i];
+        }
+        return res;
+    }
+
+
+
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> list = new ArrayList();
+        List<List<Integer>> list = new ArrayList<>();
         Arrays.sort(nums);
         int n = nums.length;
 
-        label46:
-        for(int i = 0; i < n; ++i) {
-            if (i <= 0 || nums[i] != nums[i - 1]) {
-                int l = i + 1;
-                int r = n - 1;
+        for (int i = 0; i < n; i++) {
+            if(i > 0 && nums[i] == nums[i-1]) continue;
+            int l = i+1, r = n-1;
 
-                while(true) {
-                    while(true) {
-                        if (l >= r) {
-                            continue label46;
-                        }
-
-                        int totalSum = nums[i] + nums[l] + nums[r];
-                        if (totalSum == 0) {
-                            List<Integer> lt = new ArrayList();
-                            lt.add(nums[i]);
-                            lt.add(nums[l]);
-                            lt.add(nums[r]);
-                            list.add(lt);
-                            ++l;
-
-                            while(nums[l] == nums[l - 1] && l < r) {
-                                ++l;
-                            }
-                        } else if (totalSum > 0) {
-                            --r;
-                        } else {
-                            ++l;
-                        }
-                    }
-                }
+            while (l < r) {
+                int totalSum = nums[i] + nums[l] + nums[r];
+                if(totalSum == 0) {
+                    List<Integer> lt = new ArrayList<>();
+                    lt.add(nums[i]);
+                    lt.add(nums[l]);
+                    lt.add(nums[r]);
+                    list.add(lt);
+                    l++;
+                    while (nums[l] == nums[l-1] && l < r) l++;
+                }else if(totalSum > 0) r--;
+                else l++;
             }
         }
-
         return list;
+
+
     }
 
     public int threeSumClosest(int[] nums, int target) {
@@ -297,10 +331,13 @@ public class ArraysMedium {
 
     }
 
+
+
     public static void main(String[] args) {
-        char[][] var10000 = new char[][]{{'5', '3', '.', '.', '7', '.', '.', '.', '.'}, {'6', '.', '.', '1', '9', '5', '.', '.', '.'}, {'.', '9', '8', '.', '.', '.', '.', '6', '.'}, {'8', '.', '.', '.', '6', '.', '.', '.', '3'}, {'4', '.', '.', '8', '.', '3', '.', '.', '1'}, {'7', '.', '.', '.', '2', '.', '.', '.', '6'}, {'.', '6', '.', '.', '.', '.', '2', '8', '.'}, {'.', '.', '.', '4', '1', '9', '.', '.', '5'}, {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
-        int[] s = new int[]{5, 7, 7, 8, 8, 10};
-        int[] l = searchRange(s, 8);
-        System.out.println(l[0] + l[1]);
+//        char[][] var10000 = new char[][]{{'5', '3', '.', '.', '7', '.', '.', '.', '.'}, {'6', '.', '.', '1', '9', '5', '.', '.', '.'}, {'.', '9', '8', '.', '.', '.', '.', '6', '.'}, {'8', '.', '.', '.', '6', '.', '.', '.', '3'}, {'4', '.', '.', '8', '.', '3', '.', '.', '1'}, {'7', '.', '.', '.', '2', '.', '.', '.', '6'}, {'.', '6', '.', '.', '.', '.', '2', '8', '.'}, {'.', '.', '.', '4', '1', '9', '.', '.', '5'}, {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
+//        int[] s = new int[]{5, 7, 7, 8, 8, 10};
+//        int[] l = searchRange(s, 8);
+//        System.out.println(l[0] + l[1]);
+
     }
 }
