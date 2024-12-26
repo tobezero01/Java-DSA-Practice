@@ -383,6 +383,20 @@ public class ArraysMedium {
         return result.toString();
     }
 
+    //28. Find the Index of the First Occurrence in a String
+    public int strStr(String haystack, String needle) {
+        int m = needle.length();
+        int n = haystack.length();
+        if (m == 0) return 0;
+        if (n < m) return -1;
+        for (int i = 0; i <= n - m; i++) {
+            if (haystack.charAt(i) != needle.charAt(0)) continue;
+            String subTemp = haystack.substring(i, i + m);
+            if (subTemp.equals(needle)) return i;
+        }
+        return -1;
+    }
+
 
     public static void main(String[] args) {
         System.out.println(convert("PAYPALISHIRING", 3));
