@@ -1,8 +1,7 @@
-package Sorting;
+package Sorting.BaseSorting;
 
-import java.util.Arrays;
 
-public class SortFunction {
+public class Bubble {
 
     // O(n^2)
     public static void bubbleSort(int[] arr) {
@@ -19,13 +18,4 @@ public class SortFunction {
         }
     }
 
-    //Lấy phần tử hiện tại và so sánh và chèn với các phần tử trước nó trong phần đã sắp xếp.
-    // O(n^2)
-    public static void insertSort(int[] arr) {
-
-    }
-
-    public static void main(String[] args) {
-
-    }
 }

@@ -2,7 +2,7 @@ package Strings;
 
 import java.util.Arrays;
 
-public class StringOnLeetcodeMedium {
+public class MainStrings {
     //3
     public static int lengthOfLongestSubstring(String s) {
         int n = s.length();
