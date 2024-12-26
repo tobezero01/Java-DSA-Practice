@@ -331,9 +331,62 @@ public class ArraysMedium {
 
     }
 
+    //151. Reverse Words in a String
+    public static String reverseWords(String s) {
+        String [] tempString = s.split(" ");
+        int n = tempString.length;
+        int l = 0, r = n -1 ;
+        while (l <= r) {
+            String temp = tempString[l];
+            tempString[l] = tempString[r];
+            tempString[r]= temp;
+            l++;r--;
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String word : tempString) {
+            if (word != null && !word.isEmpty()) {
+                if (word.length() > 0) stringBuilder.append(" ");
+                stringBuilder.append(word);
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+    //6. Zigzag Conversion
+    public static String convert(String s, int numRows) {
+        if (numRows == 1 || s.length() <= numRows) return s;
+        char[][] charArray = new char[numRows][s.length()];
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < s.length(); j++) {
+                charArray[i][j] = ' ';
+            }
+        }
+
+        int i = 0, j = 0;
+        boolean goingDown = false;
+        for (char c : s.toCharArray()) {
+            charArray[i][j] = c;
+            if (i == 0 || i == numRows - 1) goingDown = !goingDown;
+            i += goingDown ? 1 : -1;
+            if (!goingDown) j++;
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col <= j; col++) {
+                if (charArray[row][col] != ' ') {
+                    result.append(charArray[row][col]);
+                }
+            }
+        }
+
+        return result.toString();
+    }
 
 
     public static void main(String[] args) {
+        System.out.println(convert("PAYPALISHIRING", 3));
+
 //        char[][] var10000 = new char[][]{{'5', '3', '.', '.', '7', '.', '.', '.', '.'}, {'6', '.', '.', '1', '9', '5', '.', '.', '.'}, {'.', '9', '8', '.', '.', '.', '.', '6', '.'}, {'8', '.', '.', '.', '6', '.', '.', '.', '3'}, {'4', '.', '.', '8', '.', '3', '.', '.', '1'}, {'7', '.', '.', '.', '2', '.', '.', '.', '6'}, {'.', '6', '.', '.', '.', '.', '2', '8', '.'}, {'.', '.', '.', '4', '1', '9', '.', '.', '5'}, {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
 //        int[] s = new int[]{5, 7, 7, 8, 8, 10};
 //        int[] l = searchRange(s, 8);

@@ -171,5 +171,10 @@ public class arrays {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
     }
+
+
+
+
+
 }
 
