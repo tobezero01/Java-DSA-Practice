@@ -5,6 +5,9 @@
 
 package Arrays;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class arrays {
@@ -70,6 +73,86 @@ public class arrays {
         } else {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
+    }
+
+
+    //13. Roman to Integer
+    public static int romanToInt(String s) {
+        Map<Character, Integer> romanMap = new HashMap<>();
+        romanMap.put('I', 1);
+        romanMap.put('V', 5);
+        romanMap.put('X', 10);
+        romanMap.put('L', 50);
+        romanMap.put('C', 100);
+        romanMap.put('D', 500);
+        romanMap.put('M', 1000);
+
+        int res = 0;
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
+            int currVal = romanMap.get(s.charAt(i));
+            if (i < n - 1 && currVal < romanMap.get(s.charAt(i+1))) {
+                res -= currVal;
+            } else {
+                res += currVal;
+            }
+        }
+        return res;
+    }
+
+    public String intToRoman(int num) {
+        final int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        final String[] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            if(num == 0) break;
+            while (num > values[i]) {
+                stringBuilder.append(symbols[i]);
+                num-=values[i];
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+    //58. Length of Last Word
+    public int lengthOfLastWord(String s) {
+        int n = s.length() - 1;
+        while (n >= 0 && s.charAt(n) == ' ') n--;
+        int m = n;
+        while (m >= 0 && s.charAt(m) != ' ') m--;
+        return n - m;
+    }
+//    public int lengthOfLastWord(String s) {
+//        int res = 0;boolean counting = false;
+//        for (char c : s.toCharArray()) {
+//            if(c != ' ') {
+//                if (!counting) {
+//                    counting = true;res = 1;
+//                } else {
+//                    res++;
+//                }
+//            } else {
+//                counting = false;
+//            }
+//        }
+//        return res;
+//    }
+
+    //14. Longest Common Prefix
+    public String longestCommonPrefix(String[] strs) {
+        int n = strs.length;
+        String s = "";
+        Arrays.sort(strs);
+        String first = strs[0];
+        String last = strs[n-1];
+        for (int i = 0; i < Math.min(first.length(), last.length()); i++)  {
+            char c = first.charAt(i);
+            if (c != last.charAt(i)) return s;
+            s+= String.valueOf(c);
+        }
+        s = s.trim();
+
+        return s;
     }
 
     private static int[] delete(int[] array, int index) {
